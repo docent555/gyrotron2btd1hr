@@ -116,7 +116,10 @@ imidx = Ne+1:2*Ne;
 p = repmat(p0,Nzi,1);
 % Jref(:) = Ib(1) * sum(p, 2)/Ne;
 % Jref(:) = Current_o(p, Ib(1), Ne);
-Jref(:) = Current_n(p_p, ai(IDX(0)), aperp(IDX(0)), s, apar(IDX(0)), Ib(IDX(0)), Ne);
+Jref(:) = Current_n(p, ai(IDX(0)), aperp(IDX(0)), s, apar(IDX(0)), Ib(IDX(0)), Ne);
+% tmp = [real(Jref) imag(Jref)];
+% save test.dat tmp -ascii
+% pause
 SJ = griddedInterpolant(ZAxisi, Jref,'spline');
 J(1:ZAxis_ipart_end,1) = SJ(ZAxis_ipart);
 B(:,1) = J(:) - 1i*kpar2(:).*field(:);
@@ -195,7 +198,7 @@ for step=1:Nt-1
         lhjabs.YData = abs(J(1:ZAxis_ipart_end));
 
         drawnow
-    end     
+    end      
 
     PL = h*kpar2(1)*kappa(IDX(step));
     PR = h*kpar2(Nz)*kappa(IDX(step));
